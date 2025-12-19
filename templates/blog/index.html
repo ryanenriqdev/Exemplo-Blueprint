@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Blog Flask{% endblock %}
+
+{% block content %}
+<div class="blog-home">
+    <h2>Bem-vindo ao Blog!</h2>
+
+    {% if posts %}
+        <div class="posts-list">
+            {% for post in posts %}
+                <article class="post-card">
+                    <h3>{{ post.titulo }}</h3>
+                    <p class="post-preview">{{ post.conteudo[:100] }}...</p>
+                    <div class="post-meta">
+                        <span class="autor">Por: {{ post.autor }}</span>
+                        <a href="{{ url_for('blog.post', post_id=post.id) }}" class="btn">Ler mais</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-posts">Nenhuma postagem publicada ainda.</p>
+    {% endif %}
+</div>
+{% endblock %}

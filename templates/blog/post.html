@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.titulo if post else 'Post não encontrado' }}{% endblock %}
+
+{% block content %}
+<div class="post-detail">
+    {% if post %}
+        <article>
+            <h2>{{ post.titulo }}</h2>
+            <p class="post-meta">Por: {{ post.autor }}</p>
+            <div class="post-content">
+                {{ post.conteudo }}
+            </div>
+            <div class="post-actions">
+                <a href="{{ url_for('blog.index') }}" class="btn">Voltar</a>
+            </div>
+        </article>
+    {% else %}
+        <p class="error">Postagem não encontrada.</p>
+        <a href="{{ url_for('blog.index') }}" class="btn">Voltar</a>
+    {% endif %}
+</div>
+{% endblock %}

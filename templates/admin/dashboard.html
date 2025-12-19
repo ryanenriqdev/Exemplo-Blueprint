@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Blog Flask{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <div class="dashboard-header">
+        <h2>Gerenciar Postagens</h2>
+        <a href="{{ url_for('admin.novo_post') }}" class="btn btn-primary">Nova Postagem</a>
+    </div>
+
+    {% if posts %}
+        <table class="posts-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                    <tr>
+                        <td>{{ post.id }}</td>
+                        <td>{{ post.titulo }}</td>
+                        <td>{{ post.autor }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('blog.post', post_id=post.id) }}" class="btn btn-small">Ver</a>
+                            <a href="{{ url_for('admin.editar_post', post_id=post.id) }}" class="btn btn-small">Editar</a>
+                            <a href="{{ url_for('admin.deletar_post', post_id=post.id) }}"
+                               class="btn btn-small btn-danger"
+                               onclick="return confirm('Deletar esta postagem?')">Deletar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-posts">Nenhuma postagem cadastrada.</p>
+    {% endif %}
+</div>
+{% endblock %}
